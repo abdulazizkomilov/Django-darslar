@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %} Single {% endblock %}
+
+{% block content %}
+
+<main class="container p-2">
+  <div class="card text-center mt-4">
+    <div class="card-header">
+      <span class="badge rounded-pill bg-{{ post.status_color }}">
+        <a class="navbar-brand p-2" href="/">news.uz</a>
+      </span>
+    </div>
+    <div class="card-body">
+      <h2 class="card-title">{{ post.title }}</h2>
+      <p class="card-text">{{ post.sammury }}</p>
+      <p class="lead">{{ post.content|safe }}</p>
+    </div>
+    <div class="card-footer text-muted">
+      Author: {{ post.author }} | Time: {{ post.publish }}
+    </div>
+  </div>
+</main>
+{% endblock content %}

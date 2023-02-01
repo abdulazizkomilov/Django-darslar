@@ -1,0 +1,20 @@
+{% load static %}
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand p-2" href="/">NEWS.UZ</a>
+      <div class="d-flex p-2">
+        {% if request.user.is_authenticated %}
+        <button type="button" class="btn btn-outline-light me-2">
+          <a class="nav-link" href="#">Logout</a>
+        </button>
+        {% else %}
+        <button type="button" class="btn btn-outline-light me-2">
+          <a class="nav-link" href="">Login</a>
+        </button>
+        <button type="button" class="btn btn-warning">
+          <a class="nav-link" href="\#">Sign-up</a>
+        </button>
+        {% endif %}
+      </div>
+    </div>
+</nav>
