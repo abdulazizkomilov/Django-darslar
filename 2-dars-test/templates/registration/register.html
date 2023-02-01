@@ -1,0 +1,85 @@
+{% load tailwind_tags %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    {% tailwind_css %}
+    <title>
+        Dashboard Login
+    </title>
+</head>
+<body>
+    <div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="auth-content">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div>
+                        <a href="/">
+                            <img class="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
+                        </a>
+                        <a class="font-medium text-indigo-600 hover:text-indigo-500" href="/"><center>NEWS.UZ</center></a>
+                        <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Create your account</h2>
+                        <p class="mt-2 text-center text-sm text-gray-600">
+                          Or
+                          <a href="{% url 'login:login' %}" class="font-medium text-indigo-600 hover:text-indigo-500">Sign In</a>
+                        </p>
+                    </div>
+
+                    <span class="mb-0 text-muted">
+                        {% if msg %}
+                            <span class="text-danger">{{ msg | safe }}</span>
+                        {% endif %} 
+                    </span>
+              
+                    {% if success %}
+
+                        <a href="#" class="btn btn-primary shadow-2 mb-4"></a>
+
+                    {% else %}
+
+                        <form class="mt-8 space-y-6" role="form" method="post" action="">
+
+                            {% csrf_token %}                    
+
+                            <div class="input-group mb-3">
+                                {{ form.username }}
+                            </div>
+                            <span class="text-error">{{ form.username.errors }}</span>
+
+                            <div class="input-group mb-3">
+                                {{ form.email }}
+                            </div>
+                            <span class="text-error">{{ form.email.errors }}</span>
+
+                            <div class="input-group mb-4">
+                                {{ form.password1 }}
+                            </div>
+                            <span class="text-error">{{ form.password1.errors }}</span>
+
+                            <div class="input-group mb-4">
+                                {{ form.password2 }}
+                            </div>
+                            <span class="text-error">{{ form.password2.errors }}</span>
+                            
+                            <div>
+                                <button type="submit" class="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                  <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                                    <!-- Heroicon name: mini/lock-closed -->
+                                    <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                      <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
+                                    </svg>
+                                  </span>
+                                  Sign Up
+                                </button>
+                            </div>
+                        </form>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,30 @@
+{% load static %}
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">
+        <img src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" width="30" height="24">  NEWS.UZ
+      </a>
+      <div class="d-flex p-2">
+        {% if request.user.is_authenticated %}
+          {% if user.is_staff %}
+            <button type="button" class="btn btn-outline-light me-2">
+              <a class="nav-link" href="{% url 'core:user' %}">Users List</a>
+            </button>
+            <button type="button" class="btn btn-outline-light me-2">
+              <a class="nav-link" href="{% url 'core:add' %}">Add Post</a>
+            </button>
+          {% endif %}
+        <button type="button" class="btn btn-outline-light me-2">
+          <a class="nav-link" href="{% url 'login:logout' %}">Logout</a>
+        </button>
+        {% else %}
+        <button type="button" class="btn btn-outline-light me-2">
+          <a class="nav-link" href="{% url 'login:login' %}">Login</a>
+        </button>
+        <button type="button" class="btn btn-warning">
+          <a class="nav-link" href="{% url 'login:register' %}">Sign-up</a>
+        </button>
+        {% endif %}
+      </div>
+    </div>
+</nav>

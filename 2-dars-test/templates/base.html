@@ -1,0 +1,19 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>
+      {% block title %}news.uz {% endblock %}
+    </title>
+    {% include 'links.html' %}
+  </head>
+  <body>
+    {% include 'nav.html' %}
+
+    {% block content %}
+    {% endblock content %}
+
+    {% include 'js.html' %}
+  </body>
+</html>

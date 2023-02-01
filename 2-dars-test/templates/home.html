@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %} Dashboard {% endblock %}
+
+{% block content %}
+{% if user.is_staff %}
+  <main class="container p-3">
+    {% for post in posts %}
+      <div class="card text-center mt-4">
+        <div class="card-header">
+          <span class="badge rounded-pill bg-{{ post.status_color }}">
+            <a class="navbar-brand p-2" href="/">news.uz</a>
+          </span>
+        </div>
+        <div class="card-body">
+          <a class="navbar-brand p-2" href="{{ post.get_absolute_url }}">
+            <img class="card-img-top" src="{{ post.image.url }}" alt="{{ post.title }}" style="width: 25rem;">
+         </a>
+         <h5 class="card-title">{{ post.title }}</h5>
+          <p class="card-text">{{ post.sammury }}</p>
+          <a class="btn btn-lg btn-{{ post.status_color }}" href="{{ post.get_absolute_url }}" role="button">View</a>
+          <a class="btn btn-lg btn-{{ post.status_color }}" href="{% url 'core:edit' post.pk %}" role="button">Edit</a>
+          <a class="btn btn-lg btn-{{ post.status_color }}" href="{% url 'core:delete' post.pk %}" role="button">Delete</a>
+        </div>
+        <div class="card-footer text-muted">
+          Author: {{ post.author }} | Time: {{ post.publish }}
+        </div>
+      </div>
+    {% endfor %}
+  </main>
+{% else %}
+  <main class="container p-3">
+      {% for post in posts %}
+        <div class="card text-center mt-4">
+          <div class="card-header">
+            <span class="badge rounded-pill bg-{{ post.status_color }}">
+              <a class="navbar-brand p-2" href="/">news.uz</a>
+            </span>
+          </div>
+          <div class="card-body">
+            <a class="navbar-brand p-2" href="{{ post.get_absolute_url }}">
+               <img class="card-img-top" src="{{ post.image.url }}" alt="{{ post.title }}" style="width: 25rem;">
+            </a>
+            <h5 class="card-title">{{ post.title }}</h5>
+            <p class="card-text">{{ post.sammury }}</p>
+            <a class="btn btn-lg btn-{{ post.status_color }}" href="{{ post.get_absolute_url }}" role="button">View post &raquo;</a>
+          </div>
+          <div class="card-footer text-muted">
+            Author: {{ post.author }} | Time: {{ post.publish }}
+          </div>
+        </div>
+      {% endfor %}
+  </main>
+{% endif %}
+{% endblock content %}

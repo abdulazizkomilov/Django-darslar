@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %} Users {% endblock %}
+
+{% block content %}
+<main class="container p-3">
+    {% for user in posts %}
+    <div class="card text-center mt-4">
+        <div class="card-header">
+          <span class="badge rounded-pill bg-warning text-dark">
+            User: {{ user.id }}
+          </span>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ user.username }}</h5>
+          <p class="card-text">{{ user.first_name }}</p>
+          <p class="card-text">{{ user.last_name }}</p>
+          <p class="card-text">{{ user.email }}</p>
+         </div>
+    </div>
+    {% endfor %}
+</main>
+{% endblock content %}
