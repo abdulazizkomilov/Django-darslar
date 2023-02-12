@@ -154,13 +154,17 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 ## EMAIL
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-DEFAULT_FROM_EMAIL = 'your_custom_email_account'
-EMAIL_HOST = 'smtp'
-EMAIL_HOST_USER = 'username'
-EMAIL_HOST_PASSWORD = 'password'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# DEFAULT_FROM_EMAIL = 'a......@gmail.com'
+# EMAIL_HOST = 'smtp'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'admin'
+# EMAIL_HOST_PASSWORD = '1234567'
+
+# Custom setting. To email
+# RECIPIENT_ADDRESS = '...........@gmail.com'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
