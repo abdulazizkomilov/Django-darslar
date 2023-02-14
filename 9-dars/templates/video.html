@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Video{% endblock title %}
+
+{% block content %}
+    <br/>
+    <div class="jumbotron">
+        <h1 class="display-4">Videolar!</h1>
+        <hr class="my-4">
+        {% for file in files %}
+            <h3>{{file.caption}}</h3>
+            <video controls>
+                <source src="{{file.file.url}}" type="video/mp4">
+            </video>
+        {% endfor %}
+    </div>
+{% endblock content %}
