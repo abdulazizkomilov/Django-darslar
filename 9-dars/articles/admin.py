@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Article, Comment
+from .models import *
 
 # class CommentInLine(admin.StackedInline):
 #     model = Comment
@@ -12,5 +12,9 @@ class CommentInLine(admin.TabularInline):
 class ArticleAdmin(admin.ModelAdmin):
     inlines = [CommentInLine]
 
+
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Comment)
+
+admin.site.register(Music)
+admin.site.register(Video)
