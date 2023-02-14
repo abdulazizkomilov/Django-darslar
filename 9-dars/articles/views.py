@@ -2,8 +2,17 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from django.urls import reverse_lazy
+from django.shortcuts import render
 
-from .models import Article, Comment
+from .models import Article, Comment, Music, Video
+
+def music(request):
+    files=Music.objects.all()
+    return render(request, 'music.html', {'files':files})
+
+def video(request):
+    files=Video.objects.all()
+    return render(request, 'video.html', {'files':files})
 
 class ArticleListView(ListView):
     model = Article
