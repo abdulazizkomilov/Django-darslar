@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Music{% endblock title %}
+
+{% block content %}
+    <br/>
+    <div class="jumbotron">
+        <h1 class="display-4">Musiqalar!</h1>
+        <hr class="my-4">
+        {% for file in files %}
+            <h3>{{file.caption}}</h3>
+            <audio controls>
+                <source src="{{file.file.url}}" type="audio/mp3">
+            </audio>
+        {% endfor %}
+    </div>
+{% endblock content %}
