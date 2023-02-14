@@ -10,8 +10,22 @@
         <p class="lead">Xush kelibsiz! News.uz sahifasining yangiliklar saytiga.</p>
         <hr class="my-4">
         <p>Bu yerda so'nggi yangiliklardan xabardor bo'lib turasiz.</p>
-        <p class="lead">
-            <a class="btn btn-primary btn-lg" href="{% url 'article_list' %}" role="button">Postlarni ko'rish</a>
-        </p>
+        <ul>
+            <li>
+                <p class="lead">
+                    <a class="btn btn-primary btn-lg" href="{% url 'article_list' %}" role="button">Postlarni ko'rish</a>
+                </p>
+            </li>
+            <li>
+                <p class="lead">
+                    <a class="btn btn-primary btn-lg" href="{% url 'video' %}" role="button">Videolarni ko'rish</a>
+                </p>
+            </li>
+            <li>
+                <p class="lead">
+                    <a class="btn btn-primary btn-lg" href="{% url 'music' %}" role="button">Audio eshitish</a>
+                </p>
+            </li>
+        </ul>
     </div>
 {% endblock content %}
