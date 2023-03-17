@@ -1,3 +1,4 @@
+{% comment %}
 {% extends 'base.html' %}
 
 {% block title %} Single {% endblock %}
@@ -13,13 +14,14 @@
     </div>
     <div class="card-body">
       <img class="card-img-top" src="{{ post.image.url }}" alt="{{ post.title }}" style="width: 40rem;">
-      <h2 class="card-title">{{ post.title }}</h2>
-      <p class="card-text">{{ post.sammury }}</p>
-      <p class="lead">{{ post.content|safe }}</p>
+      <h2 class="card-title">{ post.title }}</h2>
+      <p class="card-text">{{ post.sdsammury }}</p>
+      <p class="lead">{{ post.content|linebreaks|urlize }}</p>
+      <p>{% lorem 5 %}</p>
     </div>
     <div class="card-footer text-muted">
       Author: {{ post.author }} | Time: {{ post.publish }}
     </div>
   </div>
 </main>
-{% endblock content %}
+{% endcomment %}
