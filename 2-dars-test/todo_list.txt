@@ -1,0 +1,12 @@
+To do list
+
+1.  |title |
+2.  |timesince |
+3.  |wordcount |
+4.  |truncatewords:<son> |
+5.  |linebreaks |
+6.  |urlize |
+7.  |floatformat:<son> -----
+8.  {% lorem \ lorem <son> %} |
+9.  {% comment %}{% endcomment %} |
+
