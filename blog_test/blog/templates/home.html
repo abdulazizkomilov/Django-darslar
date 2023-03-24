@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {% for post in posts %}
+        <div class="col">
+          <div class="card shadow-sm">
+            <a href="{% url 'blog:single' post.slug %}">
+                <img src="{{ post.image.url }}" class="card-img-top" alt="">
+            </a>
+            <div class="card-body">
+              <h4>{{ post.title|title }}</h4>
+              <p class="card-text">{{ post.summary }}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a href="{% url 'blog:single' post.slug %}" type="button" class="btn btn-sm btn-outline-secondary">View</a>
+                </div>
+                <small class="text-muted">{{ post.created_at|timesince }}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
