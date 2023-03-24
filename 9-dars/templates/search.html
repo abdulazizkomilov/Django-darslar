@@ -1,0 +1,35 @@
+<section class="mb-6 pb-0">
+	<div class="container-fluid px-lg-5">
+		<!-- Title -->
+		<div class="row mb-4">
+			<div class="col-12 text-center">
+				<h2>Our Exciting Experience</h2>
+			</div>
+		</div>
+
+		<!-- Slider START -->
+		<div class="tiny-slider arrow-round arrow-blur rounded-3 overflow-hidden">
+			<div class="tiny-slider-inner" data-autoplay="true" data-arrow="true" data-dots="false" data-items-xl="4" data-items-lg="3" data-items-md="2" data-items-xs="1">
+				{% for product in products %}
+                    <!-- Card item START -->
+                    <div>
+                        <div class="card card-metro overflow-hidden">
+                            <!-- Image overlay -->
+                            <div class="card-img-overlay d-flex"> 
+                                <!-- Info -->
+                                <div class="card-text mt-auto">
+                                    <h4><a href="{% url 'article_detail' product.slug %}" class="text-white stretched-link">{{ product.title|title }}</a></h4>
+                                    <p class="text-white mb-2">{{ product.description }}</p>
+                                    <button class="btn btn-link text-white p-0 mb-0">View</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card item END -->
+                {% endfor %}
+                
+			</div>	
+		</div>
+	</div>
+</section>
+
