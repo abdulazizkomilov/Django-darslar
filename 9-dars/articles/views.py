@@ -3,12 +3,25 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from django.urls import reverse_lazy
 from django.shortcuts import render
+from django.db.models import Q
 
 from .models import Article, Comment, Music, Video
 
 def music(request):
     files=Music.objects.all()
     return render(request, 'music.html', {'files':files})
+
+def search(request):
+    query = request.GET.get('query', '')
+    products = Article.objects.filter(Q(title__icontains=query) | Q(description__icontains=query))
+
+    context = {
+        'query': query,
+        'products': products,
+    }
+
+    return render(request, 'search.html', context)
+
 
 def video(request):
     files=Video.objects.all()
