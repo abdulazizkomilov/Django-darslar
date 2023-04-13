@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Blogs{% endblock %}
+
+{% block content %}
+
+<section class="my-5 py-5">
+    <div class="container mt-sm-5 mt-3">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row mt-3">
+                    {% for blog in blogs %}
+                    <div class="col-md-3 mt-md-0 mt-3">
+                        <a
+                            href="">
+                            <div class="card shadow-lg move-on-hover min-height-160 min-height-160">
+                                <a href="{% url 'blog:blog_detail' blog.id %}">
+                                    <img class="w-100 my-auto" src="{{ blog.image.url }}" alt="{{blog.title|truncatewords:2}}">
+                                </a>
+                                </div>
+                            <div class="mt-2 ms-2">
+                                <h6 class="mb-0"><a href="{% url 'blog:blog_detail' blog.id %}">{{blog.title|title}}</a></h6>
+                                <p class="text-secondary text-sm">{{blog.created|timesince}}</p>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
