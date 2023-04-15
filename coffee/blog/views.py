@@ -1,9 +1,23 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Blog, Comment
+from django.contrib.auth.models import User
 
 
 def home(request):
     return render(request, 'home.html')
+
+
+
+def account(request, pk):
+
+    user = get_object_or_404(User, id=pk)
+
+
+    context = {
+        'user': user,
+    }
+    return render(request, 'registration/account.html', context)
+
 
 
 def blog(request):
