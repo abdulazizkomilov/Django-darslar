@@ -1,0 +1,10 @@
+<h2>
+    <div>
+        <img src="{{user.userprofile.avatar.url}}" width="30%" alt="">
+    </div>
+    {% if request.user.first_name and request.user.last_name %}
+    {{request.user.first_name}} {{request.user.last_name}}
+    {% else %}
+    {{request.user.username}}
+    {% endif %}
+</h2>
