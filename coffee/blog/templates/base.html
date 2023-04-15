@@ -26,20 +26,38 @@
                         
                         {% if request.user.is_authenticated %}
 
+                        {% if request.user.userprofile.avatar %}
+                        <a class="avatar avatar-sm ms-auto d-lg-none d-block" id="profileDropdown" data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img class="avatar-img rounded-2" src="{{ request.user.userprofile.avatar.url }}" alt="avatar">
+                        </a>
+                        {% else %}
                         <a class="avatar avatar-sm ms-auto d-lg-none d-block" id="profileDropdown" data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false">
                             <img class="avatar-img rounded-2" src="/media/default.png" alt="avatar">
                         </a>
+                        {% endif %}
 
                         <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow" aria-labelledby="profileDropdown">
                             
                             <li class="px-3">
                                 <div class="d-flex align-items-center">
                                     
+                                    {% if request.user.userprofile.avatar %}
+                                    <div class="avatar me-3">
+                                        <img class="avatar-img rounded-circle shadow" src="{{ request.user.userprofile.avatar.url }}" alt="avatar">
+                                    </div>
+                                    {% else %}
                                     <div class="avatar me-3">
                                         <img class="avatar-img rounded-circle shadow" src="/media/default.png" alt="avatar">
                                     </div>
+                                    {% endif %}
                                     <div>
-                                        <a class="h6 mt-2 mt-sm-0" href="#">Lori Ferguson</a>
+                                        <a class="h6 mt-2 mt-sm-0" href="{% url 'blog:account' request.user.id %}">
+                                            {% if request.user.first_name and request.user.last_name %}
+                                            {{request.user.first_name}} {{request.user.last_name}}
+                                            {% else %}
+                                            {{request.user.username}}
+                                            {% endif %}
+                                        </a>
                                         <p class="small m-0">example@gmail.com</p>
                                     </div>
                                 </div>
@@ -79,20 +97,39 @@
 
                             <ul class="navbar-nav d-lg-block d-none">
                                 <li class="nav-item dropdown dropdown-hover mx-2">
+
+                                    {% if request.user.userprofile.avatar %}
                                     <a class="avatar avatar-sm p-0" id="profileDropdown" data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img class="avatar-img rounded-2" src="/media/default.png" alt="avatar">
+                                        <img class="avatar-img rounded-2" src="{{ request.user.userprofile.avatar.url }}" alt="avatar">
                                     </a>
+                                    {% else %}
+                                    <div class="avatar me-3">
+                                        <img class="avatar-img rounded-circle shadow" src="/media/default.png" alt="avatar">
+                                    </div>
+                                    {% endif %}
 
                                     <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
                                         
                                         <li class="px-3 mb-3">
                                             <div class="d-flex align-items-center">
                                                 
+                                                {% if request.user.userprofile.avatar %}
+                                                <a class="avatar avatar-sm p-0" id="profileDropdown" data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <img class="avatar-img rounded-2" src="{{ request.user.userprofile.avatar.url }}" alt="avatar">
+                                                </a>
+                                                {% else %}
                                                 <div class="avatar me-3">
                                                     <img class="avatar-img rounded-circle shadow" src="/media/default.png" alt="avatar">
                                                 </div>
+                                                {% endif %}
                                                 <div>
-                                                    <a class="h6 mt-2 mt-sm-0" href="#">Lori Ferguson</a>
+                                                    <a class="h6 mt-2 mt-sm-0" href="{% url 'blog:account' request.user.id %}">
+                                                        {% if request.user.first_name and request.user.last_name %}
+                                                        {{request.user.first_name}} {{request.user.last_name}}
+                                                        {% else %}
+                                                        {{request.user.username}}
+                                                        {% endif %}
+                                                    </a>
                                                     <p class="small m-0">example@gmail.com</p>
                                                 </div>
                                             </div>
