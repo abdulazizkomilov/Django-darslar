@@ -58,7 +58,9 @@
                                                             <small> {{comment.created|timesince}}</small>
                                                         </div>
                                                         <p class="small mb-0">{{comment.body}}</p>
-                                                        <span><a href="{% url 'blog:delete_comment' blog.id comment.id %}" class="btn btn-danger mt-3">Delete</a></span>
+                                                        {% if comment.user == request.user %}
+                                                        <span><a href="{% url 'blog:delete_comment' blog.id comment.id %}" class="mt-3"><i class="bi bi-trash-fill"></i></a></span>
+                                                        {% endif %}
                                                     </div>
                                                     <hr>
                                                 </div>
