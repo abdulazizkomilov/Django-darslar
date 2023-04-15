@@ -23,3 +23,8 @@ class Comment(models.Model):
 
     def __str__(self):
         return str(self.body)
+    
+
+class Userprofile(models.Model):
+    user = models.OneToOneField(User, related_name='userprofile', on_delete=models.CASCADE)
+    avatar = models.ImageField(upload_to='avatar/')
