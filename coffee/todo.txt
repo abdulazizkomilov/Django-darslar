@@ -1,0 +1,21 @@
+Coffe Team Project
+- DONE Coffee nomli papka yasash
+- DONE Django project yasash
+- DONE App yasash
+- DONE Loyhani test sifatida ishlatish
+- DONE App ni ichida home nomli view yasash
+- DONE Home.html bilan bog’lash
+- DONE Sitening tashqi ko`rinishini tayyorlash 
+- DONE Soft UI dan foydalanib front end ni yasaymiz
+- DONE Model (category, {user profile: ‘Custom User’}) 
+- DONE Yangiliklarni home da ko`rsatish
+- Login va Sign Up ni tayyorlash va bog`lash
+- Userlar uchun accounts bo`limini yasash
+- Userlarni admin yoki foydalanuvchi ekkanligini ajratish
+- Post detail qo’shish
+- Post qo`shish (adminlar uchun)
+- Postlarni tahrirlash 
+- …
+- …
+- Server uchun loyhani tayyorlash
+- Railway App ga deploy qilish
