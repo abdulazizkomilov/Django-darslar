@@ -9,14 +9,25 @@ def home(request):
 
 
 def account(request, pk):
-
     user = get_object_or_404(User, id=pk)
-
+    blogs = Blog.objects.filter(author=user)
 
     context = {
         'user': user,
+        'blogs': blogs,
     }
     return render(request, 'registration/account.html', context)
+
+
+def delete_blog(request, pk, id):
+    user = get_object_or_404(User, id=id)
+    if pk:
+        blog = Blog.objects.get(id=pk)
+        blog.delete()
+
+        return redirect('blog:account', user.id)
+
+    return render(request, 'account.html')
 
 
 
