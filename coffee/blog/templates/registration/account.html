@@ -24,7 +24,7 @@
 
                             <!-- Edit profile button -->
                             <div class="position-absolute top-0 end-0 p-3">
-                                <a href="#" class="text-primary-hover" data-bs-toggle="tooltip"
+                                <a href="{% url 'blog:user_profile' request.user.pk %}" class="text-primary-hover" data-bs-toggle="tooltip"
                                     data-bs-title="Edit profile">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
@@ -37,10 +37,10 @@
                                     <!-- Avatar -->
                                     <div class="avatar avatar-xl mb-2">
 
-                                        {% if request.user.userprofile.avatar %}
+                                        {% if request.user.avatar %}
                                         <a class="avatar-img rounded-circle border border-2 border-white">
                                             <img class="avatar-img rounded-2"
-                                                src="{{ request.user.userprofile.avatar.url }}">
+                                                src="{{ request.user.avatar.url }}">
                                         </a>
                                         {% else %}
                                         <a class="avatar-img rounded-circle border border-2 border-white">
@@ -57,7 +57,9 @@
                                         {{user.username|title}}
                                         {% endif %}
                                     </h6>
-                                    <a href="#" class="text-reset text-primary-hover small">hello@gmail.com</a>
+                                    {% if user.email %}
+                                    <a class="text-reset text-primary-hover small">{{user.email}}</a>
+                                    {% endif%}
                                     <hr>
                                 </div>
 
