@@ -26,8 +26,30 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+
+    "crispy_forms",
+    "crispy_bootstrap5",
+
     'blog',
 ]
+
+
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Full',
+    },
+}
+CKEDITOR_RESTRICT_BY_USER = True
+
+
+AUTH_USER_MODEL = 'blog.User'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -112,6 +134,8 @@ STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
+# CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+# CKEDITOR_UPLOAD_PATH = "uploads/"
 
 
 # Default primary key field type
