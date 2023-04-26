@@ -1,5 +1,19 @@
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+
+
+from django.contrib.auth.models import AbstractUser
+
+class User(AbstractUser):
+    username = models.CharField(max_length=255, unique=True)
+    email = models.EmailField(max_length=255, blank=True)
+    avatar = models.ImageField(null=True, blank=True)
+    follower = models.ManyToManyField('User', blank=True)
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = []
+
+
 
 class Blog(models.Model):
     title = models.CharField(max_length=255)
@@ -25,6 +39,6 @@ class Comment(models.Model):
         return str(self.body)
     
 
-class Userprofile(models.Model):
-    user = models.OneToOneField(User, related_name='userprofile', on_delete=models.CASCADE)
-    avatar = models.ImageField(upload_to='avatar/')
+# class Userprofile(models.Model):
+#     user = models.OneToOneField(User, related_name='userprofile', on_delete=models.CASCADE)
+#     avatar = models.ImageField(upload_to='avatar/')
