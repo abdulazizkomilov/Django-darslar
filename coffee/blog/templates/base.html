@@ -26,9 +26,9 @@
                         
                         {% if request.user.is_authenticated %}
 
-                        {% if request.user.userprofile.avatar %}
+                        {% if request.user.avatar %}
                         <a class="avatar avatar-sm ms-auto d-lg-none d-block" id="profileDropdown" data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img class="avatar-img rounded-2" src="{{ request.user.userprofile.avatar.url }}" alt="avatar">
+                            <img class="avatar-img rounded-2" src="{{ request.user.avatar.url }}" alt="avatar">
                         </a>
                         {% else %}
                         <a class="avatar avatar-sm ms-auto d-lg-none d-block" id="profileDropdown" data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false">
@@ -41,9 +41,9 @@
                             <li class="px-3">
                                 <div class="d-flex align-items-center">
                                     
-                                    {% if request.user.userprofile.avatar %}
+                                    {% if request.user.avatar %}
                                     <div class="avatar me-3">
-                                        <img class="avatar-img rounded-circle shadow" src="{{ request.user.userprofile.avatar.url }}" alt="avatar">
+                                        <img class="avatar-img rounded-circle shadow" src="{{ request.user.avatar.url }}" alt="avatar">
                                     </div>
                                     {% else %}
                                     <div class="avatar me-3">
@@ -73,7 +73,7 @@
 
                         {% else %}
 
-                        <a href="" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 ms-auto d-lg-none d-block">Sign Up</a>
+                        <a href="{% url 'blog:login' %}" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 ms-auto d-lg-none d-block">Login</a>
 
                         {% endif %}
 
@@ -98,9 +98,9 @@
                             <ul class="navbar-nav d-lg-block d-none">
                                 <li class="nav-item dropdown dropdown-hover mx-2">
 
-                                    {% if request.user.userprofile.avatar %}
+                                    {% if request.user.avatar %}
                                     <a class="avatar avatar-sm p-0" id="profileDropdown" data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img class="avatar-img rounded-2" src="{{ request.user.userprofile.avatar.url }}" alt="avatar">
+                                        <img class="avatar-img rounded-2" src="{{ request.user.avatar.url }}" alt="avatar">
                                     </a>
                                     {% else %}
                                     <div class="avatar me-3">
@@ -113,9 +113,9 @@
                                         <li class="px-3 mb-3">
                                             <div class="d-flex align-items-center">
                                                 
-                                                {% if request.user.userprofile.avatar %}
+                                                {% if request.user.avatar %}
                                                 <a class="avatar avatar-sm p-0" id="profileDropdown" data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <img class="avatar-img rounded-2" src="{{ request.user.userprofile.avatar.url }}" alt="avatar">
+                                                    <img class="avatar-img rounded-2" src="{{ request.user.avatar.url }}" alt="avatar">
                                                 </a>
                                                 {% else %}
                                                 <div class="avatar me-3">
@@ -147,7 +147,7 @@
 
                             {% else %}
 
-                            <a href="" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 ms-auto d-lg-block d-none">Sign Up</a>
+                            <a href="{% url 'blog:login' %}" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 ms-auto d-lg-block d-none">Login</a>
 
                             {% endif %}
                         </div>
