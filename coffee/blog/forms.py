@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
-from .models import User
+from .models import User, Blog
 
 class MyUserCreationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
@@ -24,4 +24,12 @@ class UserForm(ModelForm):
     class Meta:
         model = User
         fields = ['avatar', 'username', 'email', 'first_name', 'last_name']
+
+
+
+class BlogForm(ModelForm):
+    class Meta:
+        model = Blog
+        fields = '__all__'
+        exclude = ['author', 'like', 'participants']
 
