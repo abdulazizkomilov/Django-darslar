@@ -19,7 +19,17 @@
                             </div>
                         </div>
                         <div class="col-lg-5 pe-lg-5 justify-content-center d-flex flex-column pt-lg-0 pt-3">
-                            <h6 class="category text-info mt-3">House</h6>
+                            <h4 class="category mt-3">
+                                {% if request.user in blog.participants.all %}
+                                    <a class="category text-danger" href="{% url 'blog:unfollow_blog' blog.id %}">
+                                        + Unfollow ({{blog.participants.all.count}})
+                                    </a>
+                                {% else %}
+                                    <a class="category text-danger" href="{% url 'blog:follow_blog' blog.id %}">
+                                        + Follow ({{blog.participants.all.count}})
+                                    </a>
+                                {% endif %}
+                            </h6>
                             <h3>
                                 {{blog.title|title}}
                             </h3>
@@ -30,6 +40,15 @@
                                 by <a href="javascript:;" class="ms-1"><span class="font-weight-bold text-info">
                                     @{{blog.author}}</span></a>, {{blog.created|timesince}} ago
                             </p>
+                            {% if request.user in blog.like.all %}
+                            <a href="{% url 'blog:deslike_blog' blog.id %}">
+                                <i class="fa-{% if request.user in blog.like.all %}solid{% else %}regular{% endif %} fa-heart fa-2xl"></i>
+                            </a>
+                            {% else %}
+                            <a href="{% url 'blog:like_blog' blog.id %}">
+                                <i class="fa-{% if request.user in blog.like.all %}solid{% else %}regular{% endif %} fa-heart fa-2xl"></i>
+                            </a>
+                            {% endif %}
                         </div>
                     </div>
                     <center>
@@ -92,6 +111,8 @@
                                         </form>
                                     </div>
                                 </div>
+                                {% else %}
+                                    <p>Please <a class="text-primary" href="{% url 'blog:login' %}">login</a>, add to comment!</p>
                                 {% endif %}
                             </div>
                         </div>
