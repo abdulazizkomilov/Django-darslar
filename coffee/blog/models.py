@@ -19,7 +19,8 @@ class Blog(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255, blank=True, null=True)
     image = models.ImageField(upload_to='media')
-    # slug =
+    like = models.ManyToManyField(User, related_name = 'like', blank=True)
+    participants = models.ManyToManyField(User, related_name='participants', blank=True)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
