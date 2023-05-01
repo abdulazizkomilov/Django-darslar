@@ -129,14 +129,14 @@
                             <div class="col-md-3 mt-md-0 mt-3">
                                 <a href="">
                                     <div class="card shadow-lg move-on-hover min-height-160 min-height-160">
-                                        <a href="{% url 'blog:blog_detail' blog.id %}">
+                                        <a href="{% url 'blog:update_blog' blog.id %}">
                                             <img class="w-100 my-auto" src="{{ blog.image.url }}"
                                                 alt="{{blog.title|truncatewords:2}}">
                                         </a>
                                     </div>
                                     <div class="mt-2 ms-2">
                                         <h6 class="mb-0"><a
-                                                href="{% url 'blog:blog_detail' blog.id %}">{{blog.title|title}}</a>
+                                                href="{% url 'blog:update_blog' blog.id %}">{{blog.title|title}}</a>
                                         </h6>
                                         <p class="text-secondary text-sm">{{blog.created|timesince}}</p>
                                     </div>
