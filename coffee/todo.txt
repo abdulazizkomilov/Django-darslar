@@ -9,10 +9,14 @@ Coffe Team Project
 - DONE Soft UI dan foydalanib front end ni yasaymiz
 - DONE Model (category, {user profile: ‘Custom User’}) 
 - DONE Yangiliklarni home da ko`rsatish
-- Login va Sign Up ni tayyorlash va bog`lash
-- Userlar uchun accounts bo`limini yasash
-- Userlarni admin yoki foydalanuvchi ekkanligini ajratish
-- Post detail qo’shish
+- DONE Login va Sign Up ni tayyorlash va bog`lash
+- DONE Userlar uchun accounts bo`limini yasash
+- DONE Userlarni admin yoki foydalanuvchi ekkanligini ajratish
+- DONE Account pageni to'g'irlash
+- DONE Postga like bosish
+- DONE Postni update qilish
+- DONE Post detail qo’shish
+- Post participants (followers)
 - Post qo`shish (adminlar uchun)
 - Postlarni tahrirlash 
 - …
