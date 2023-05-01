@@ -1,10 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Blog, Comment, User
 
-
+from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages #flashmessages
-from .forms import MyUserCreationForm, UserForm
+from .forms import MyUserCreationForm, UserForm, BlogForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -117,6 +117,74 @@ def blog(request):
         'blogs': blogs,
     }
     return render(request, 'blog.html', context)
+
+
+@login_required(login_url='login')
+def like_blog(request, pk):
+    blog = get_object_or_404(Blog, id=pk)
+    if pk:
+        blog.like.add(request.user)
+
+        return redirect('blog:blog_detail', blog.pk)
+
+    return render(request, 'blog_detail.html')
+
+
+@login_required(login_url='login')
+def deslike_blog(request, pk):
+    blog = get_object_or_404(Blog, id=pk)
+    if pk:
+        blog.like.remove(request.user)
+
+        return redirect('blog:blog_detail', blog.pk)
+
+    return render(request, 'blog_detail.html')
+
+@login_required(login_url='login')
+def follow_blog(request, pk):
+    blog = get_object_or_404(Blog, id=pk)
+    if pk:
+        blog.participants.add(request.user)
+
+        return redirect('blog:blog_detail', blog.pk)
+
+    return render(request, 'blog_detail.html')
+
+
+@login_required(login_url='login')
+def unfollow_blog(request, pk):
+    blog = get_object_or_404(Blog, id=pk)
+    if pk:
+        blog.participants.remove(request.user)
+
+        return redirect('blog:blog_detail', blog.pk)
+
+    return render(request, 'blog_detail.html')
+
+
+
+
+@login_required(login_url='login')
+def blogUpdate(request, pk):
+    page = 'Blog Update'
+    blog = get_object_or_404(Blog, id=pk)
+    user = request.user
+    form = BlogForm(instance=blog)
+
+    if request.user != blog.author:
+        return HttpResponse('You are not allowed here')
+
+
+    if request.method == 'POST':
+        form = BlogForm(request.POST, request.FILES, instance=blog)
+        if form.is_valid():
+            form.save()
+            return redirect('blog:account', pk=user.id)
+    else:
+        form = BlogForm(instance=blog)
+
+    return render(request, 'update-blog.html', {'form': form, 'page':page})
+
 
 def blog_detail(request, pk):
     blog = get_object_or_404(Blog, id=pk)
