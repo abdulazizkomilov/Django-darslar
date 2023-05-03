@@ -37,7 +37,7 @@
                                 {{blog.description}}
                             </p>
                             <p class="author">
-                                by <a href="javascript:;" class="ms-1"><span class="font-weight-bold text-info">
+                                by <a href="{% url 'blog:user' blog.author.id %}" class="ms-1"><span class="font-weight-bold text-info">
                                     @{{blog.author}}</span></a>, {{blog.created|timesince}} ago
                             </p>
                             {% if request.user in blog.like.all %}
