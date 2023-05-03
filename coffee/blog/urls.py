@@ -6,7 +6,9 @@ app_name = 'blog'
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('add-post', views.createPost, name='createPost'), 
     path('blog/', views.blog, name='blog'),
+    path('user-profile/<str:pk>/', views.users, name='user'),
     path('sign-up/', views.registerPage, name='sign_up'),
     path('login/', views.loginPage, name='login'),
     path('logout/', views.logoutUser, name='logout'),
