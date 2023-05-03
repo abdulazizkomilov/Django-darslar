@@ -33,3 +33,12 @@ class BlogForm(ModelForm):
         fields = '__all__'
         exclude = ['author', 'like', 'participants']
 
+
+
+class BlogCreateForm(ModelForm):
+    class Meta:
+        model = Blog
+        fields = '__all__'
+        exclude = ['author', 'like', 'participants']
+
+
