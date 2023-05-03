@@ -16,9 +16,11 @@ Coffe Team Project
 - DONE Postga like bosish
 - DONE Postni update qilish
 - DONE Post detail qo’shish
-- Post participants (followers)
-- Post qo`shish (adminlar uchun)
-- Postlarni tahrirlash 
+- DONE Post participants (followers)
+- DONE Post qo`shish (adminlar uchun)
+- DONE Postlarni tahrirlash 
+- Userlar uchun profile
+- Userlar uchun followers qo`shish
 - …
 - …
 - Server uchun loyhani tayyorlash
