@@ -4,7 +4,7 @@ from .models import Blog, Comment, User
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages #flashmessages
-from .forms import MyUserCreationForm, UserForm, BlogForm
+from .forms import MyUserCreationForm, UserForm, BlogForm, BlogCreateForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -78,12 +78,46 @@ def updateUser(request, pk):
         else:
             messages.error(request, 'This username was already used')
 
-    return render(request, 'registration/update-user.html', {'form': form, 'page': page,})
+    return render(request, 'form.html', {'form': form, 'page': page,})
 
 
 
 def home(request):
     return render(request, 'home.html')
+
+
+def users(request, pk):
+    user = User.objects.get(id=pk)
+
+    context = {
+        'user': user,
+    }
+    return render(request, 'components/users.html', context)
+
+
+
+def createPost(request):
+    page = 'Create Post'
+    if request.method == 'POST':
+        form = BlogCreateForm(request.POST, request.FILES)
+        if form.is_valid():
+            post =  form.save(commit=False)
+            post.author = request.user
+            post.save()
+            messages.success(request, 'Post succesfully created.')
+            return redirect('blog:blog')
+        else:
+            pass
+
+    else:
+        form = BlogCreateForm()
+
+    context = {
+        'form': form,
+        'page': page,
+    }
+    return render(request, 'form.html', context)
+
 
 
 
@@ -183,7 +217,7 @@ def blogUpdate(request, pk):
     else:
         form = BlogForm(instance=blog)
 
-    return render(request, 'update-blog.html', {'form': form, 'page':page})
+    return render(request, 'form.html', {'form': form, 'page':page})
 
 
 def blog_detail(request, pk):
