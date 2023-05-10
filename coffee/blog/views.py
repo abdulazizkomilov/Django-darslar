@@ -138,7 +138,7 @@ def delete_blog(request, pk, id):
         blog = Blog.objects.get(id=pk)
         blog.delete()
 
-        return redirect('blog:account', user.id)
+        return redirect(request.META.get('HTTP_REFERER'))
 
     return render(request, 'account.html')
 
@@ -159,7 +159,7 @@ def like_blog(request, pk):
     if pk:
         blog.like.add(request.user)
 
-        return redirect('blog:blog_detail', blog.pk)
+        return redirect(request.META.get('HTTP_REFERER'))
 
     return render(request, 'blog_detail.html')
 
@@ -170,7 +170,7 @@ def deslike_blog(request, pk):
     if pk:
         blog.like.remove(request.user)
 
-        return redirect('blog:blog_detail', blog.pk)
+        return redirect(request.META.get('HTTP_REFERER'))
 
     return render(request, 'blog_detail.html')
 
@@ -180,7 +180,7 @@ def follow_blog(request, pk):
     if pk:
         blog.participants.add(request.user)
 
-        return redirect('blog:blog_detail', blog.pk)
+        return redirect(request.META.get('HTTP_REFERER'))
 
     return render(request, 'blog_detail.html')
 
@@ -191,7 +191,30 @@ def unfollow_blog(request, pk):
     if pk:
         blog.participants.remove(request.user)
 
-        return redirect('blog:blog_detail', blog.pk)
+        return redirect(request.META.get('HTTP_REFERER'))
+
+    return render(request, 'blog_detail.html')
+
+
+
+@login_required(login_url='login')
+def user_follow(request, pk):
+    user_p = get_object_or_404(User, id=pk)
+    if pk:
+        user_p.follower.add(request.user)
+
+        return redirect(request.META.get('HTTP_REFERER'))
+
+    return render(request, 'blog_detail.html')
+
+
+@login_required(login_url='login')
+def user_unfollow(request, pk):
+    user_p = get_object_or_404(User, id=pk)
+    if pk:
+        user_p.follower.remove(request.user)
+
+        return redirect(request.META.get('HTTP_REFERER'))
 
     return render(request, 'blog_detail.html')
 
@@ -230,7 +253,7 @@ def blog_detail(request, pk):
             blog = blog,
             body = request.POST.get('body'),
         )
-        return redirect('blog:blog_detail', blog.id)
+        return redirect(request.META.get('HTTP_REFERER'))
 
     context = {
         'blog': blog,
@@ -245,7 +268,7 @@ def delete_comment(request, pk, id):
         comment = Comment.objects.get(id=id)
         comment.delete()
 
-        return redirect('blog:blog_detail', blog.pk)
+        return redirect(request.META.get('HTTP_REFERER'))
 
     return render(request, 'blog_detail.html')
 
