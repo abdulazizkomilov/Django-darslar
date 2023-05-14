@@ -19,8 +19,15 @@ Coffe Team Project
 - DONE Post participants (followers)
 - DONE Post qo`shish (adminlar uchun)
 - DONE Postlarni tahrirlash 
-- Userlar uchun profile
-- Userlar uchun followers qo`shish
+- DONE Userlar uchun profile
+- DONE Userlar uchun followers qo`shish
+- DONE Comment reply qo'shish
+- DONE homedagi raqamlarni tugirlash
+- postlarni saqlash bookmarkga
+- htmx ni tushuntitish
+- pre-post, post-save decorators
+- select_releted, prefetch_related queryset methods
+- …
 - …
 - …
 - Server uchun loyhani tayyorlash
