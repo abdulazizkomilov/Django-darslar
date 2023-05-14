@@ -4,7 +4,7 @@ from .models import Blog, Comment, User
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages #flashmessages
-from .forms import MyUserCreationForm, UserForm, BlogForm, BlogCreateForm
+from .forms import MyUserCreationForm, UserForm, BlogForm, BlogCreateForm, CommentForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -81,9 +81,17 @@ def updateUser(request, pk):
     return render(request, 'form.html', {'form': form, 'page': page,})
 
 
-
+# -------------------- new ---------------------
 def home(request):
-    return render(request, 'home.html')
+    blogs = Blog.objects.all()
+    users = User.objects.all()
+    commments = Comment.objects.all()
+    context = {
+        'blogs': blogs,
+        'users': users,
+        'commments': commments,
+    }
+    return render(request, 'home.html', context)
 
 
 def users(request, pk):
@@ -247,17 +255,41 @@ def blog_detail(request, pk):
     blog = get_object_or_404(Blog, id=pk)
     comments = blog.comment_set.all()
 
+    #  ----------------------  new  ------------------------
+    comments_count = comments.count()
+
+
+    # if request.method == 'POST':
+    #     comment = Comment.objects.create(
+    #         user = request.user,
+    #         blog = blog,
+    #         body = request.POST.get('body'),
+    #     )
+    #     return redirect(request.META.get('HTTP_REFERER'))
+    
+
+    #  ----------------------  new  ------------------------
     if request.method == 'POST':
-        comment = Comment.objects.create(
-            user = request.user,
-            blog = blog,
-            body = request.POST.get('body'),
-        )
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            body = comment_form.cleaned_data['body']
+            try:
+                parent = comment_form.cleaned_data['parent']
+            except:
+                parent=None
+
+        new_comment = Comment(body=body, user=request.user, blog=blog, parent=parent)
+        new_comment.save()
         return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        comment_form = CommentForm()
 
     context = {
         'blog': blog,
         'comments': comments,
+        'comment_form': comment_form,
+        'comments': comments,
+        'comments_count': comments_count,
     }
     return render(request, 'blog_detail.html', context)
 
