@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}Home{% endblock %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 
 <main>
@@ -52,67 +52,130 @@
                         </div>
                     </div>
                     <center>
-                        <div class="col-xl-4 col-xxl-5 mt-5">
-                            <div class="card rounded-start-lg-0 border-start-0 h-100">
-                                <div class="card-header border-0 pb-0">
-                                    <h5 class="mb-4"> {{comments_count}} Comments</h5>
-                                </div>
-                                <div class="card-body pt-0 h-400px">
-                                    <!-- Comment wrap START -->
-                                    <ul class="comment-wrap list-unstyled custom-scrollbar h-100">
-                                        <!-- Comment item START -->
-                                        <li class="comment-item">
-                                            {% for comment in comments %}
-                                            <div class="d-flex">
-                                                <!-- Avatar -->
-                                                <div class="avatar avatar-xs">
-                                                    <a href="#"> <img class="avatar-img rounded-circle"
-                                                            src="/static/05(2).jpg" alt=""> </a>
-                                                </div>
-                                                <div class="ms-2">
-                                                    <!-- Comment by -->
-                                                    <div class="bg-light rounded-start-top-0 p-3 rounded">
-                                                        <div class="d-flex justify-content-between">
-                                                            <h6 class="mb-1 me-3"> <a href=""> @{{comment.user}} </a></h6>
-                                                            <small> {{comment.created|timesince}}</small>
-                                                        </div>
-                                                        <p class="small mb-0">{{comment.body}}</p>
-                                                        {% if comment.user == request.user %}
-                                                        <span><a href="{% url 'blog:delete_comment' blog.id comment.id %}" class="mt-3"><i class="bi bi-trash-fill"></i></a></span>
-                                                        {% endif %}
-                                                    </div>
-                                                    <hr>
-                                                </div>
-                                            </div>
-                                            {% endfor %}
-                                        </li>
-                                    </ul>
-                                    <!-- Comment wrap END -->
-                                </div>
-                                {% if request.user.is_authenticated %}
-                                <div class="card-footer border-0 pt-0">
-                                    <!-- Add comment -->
-                                    <div class="d-flex">
-                                        <!-- Avatar -->
-                                        <div class="avatar avatar-xs me-2">
-                                            <a href="#!"> <img class="avatar-img rounded-circle" src="/static/04.jpg"
-                                                    alt=""> </a>
+                        <!--  ---------------  new comment  ------------------- -->
+                        <div class="card mt-5">
+                            <div class="card-header pb-0 border-0">
+                                <h4>{{comments_count}} comments</h4>
+                            </div>
+                            <div class="card-body">
+                                {% for comment in comments %}
+                                {% if comment.is_parent %}
+                                <div class="my-4 d-flex">
+                                    {% if comment.user.avatar %}
+                                    <div class="avatar avatar-xs me-3">
+                                        <a href="{% url 'blog:user_profile' comment.user.id %}">
+                                            <img class="avatar-img rounded-circle border border-white"
+                                                src="{{comment.user.avatar.url}}" alt="">
+                                        </a>
+                                    </div>
+                                    {% else %}
+                                    <div class="avatar avatar-xs rounded-circle bg-primary me-3">
+                                        <h6 class="text-white position-absolute top-50 start-50 translate-middle fw-bold">
+                                            <a class="text-white" href="{% url 'blog:user_profile' comment.user.id %}">
+                                                {% if comment.user.first_name %}
+                                                {{comment.user.first_name|first}}{{comment.user.last_name|first}}
+                                                {% else %}
+                                                {{comment.user.username|first|upper}}
+                                                {% endif %}
+                                            </a>
+                                        </h6>
+                                    </div>
+                                    {% endif %}
+                                    <div>
+                                        <div class="mb-2 d-sm-flex">
+                                            <h6 class="m-0 me-2">
+                                                <a href="{% url 'blog:user_profile' comment.user.id %}">
+                                                    @{{comment.user}}
+                                                </a>
+                                            </h6>
+                                            <span class="me-3 small">{{comment.created|timesince}} </span>
                                         </div>
-                                        <!-- Comment box  -->
-                                        <form method="post" action="" class="nav nav-item w-100 position-relative">
-                                            {% csrf_token %}
-                                            <textarea type="text" name="body" data-autoresize class="form-control pe-5 bg-light"
-                                                rows="1" placeholder="Add a comment..."></textarea>
-                                            <button
-                                                class="nav-link bg-transparent px-3 position-absolute top-50 end-0 translate-middle-y border-0"
-                                                type="submit">
-                                                <i class="bi bi-send-fill"> </i>
-                                            </button>
-                                        </form>
+                                        <p>{{comment.body}}</p>
+                                        <p>
+                                            <a class="bg-light rounded-2 p-1 text-body" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#collapseExample{{comment.id}}" aria-expanded="false"
+                                                aria-controls="collapseExample">
+                                                reply
+                                            </a>
+                                        </p>
+                                        <div class="collapse" id="collapseExample{{comment.id}}">
+                                            {% if request.user.is_authenticated %}
+                                            <form action="" method="POST" id="main_form" class="form-control">
+                                                {% csrf_token %}
+                                                <div>
+                                                    <label for="comment">Reply here</label>
+                                                    <input type="text" name="body"> 
+                                                    <input type="hidden" value="{{ comment.pk }}" name="parent">
+                                                    <input type="submit" value="reply">
+                                                </div>
+                                            </form>
+                                            {% else %}
+                                            <p>Please login than add reply. <a href="{% url 'blog:login' %}">Login page</a></p>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
+                                {% endif %}
+        
+                                {% for replies in comment.getReplies %}
+                                <div class="my-4 d-flex ps-3 ps-md-5">
+                                    {% if replies.user.avatar %}
+                                    <div class="avatar avatar-xs me-3">
+                                        <a href="{% url 'blog:user_profile' replies.user.id %}">
+                                            <img class="avatar-img rounded-circle border border-white"
+                                                src="{{replies.user.avatar.url}}" alt="">
+                                        </a>
+                                    </div>
+                                    {% else %}
+                                    <div class="avatar avatar-xs rounded-circle bg-primary me-3">
+                                        <h6 class="text-white position-absolute top-50 start-50 translate-middle fw-bold">
+                                            <a class="text-white" href="{% url 'blog:user_profile' replies.user.id %}">
+                                                {% if replies.user.first_name %}
+                                                {{replies.user.first_name|first}}{{replies.user.last_name|first}}
+                                                {% else %}
+                                                {{replies.user.username|first|upper}}
+                                                {% endif %}
+                                            </a>
+                                        </h6>
+                                    </div>
+                                    {% endif %}
+                                    <div>
+                                        <div class="mb-2 d-sm-flex">
+                                            <h6 class="m-0 me-2">
+                                                <a href="{% url 'blog:user_profile' replies.user.id %}">
+                                                    @{{replies.user}}
+                                                </a>
+                                            </h6>
+                                            <span class="me-3 small">{{replies.created|timesince}} </span>
+                                        </div>
+                                        <p>{{replies.body}} </p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                {% endfor %}
+        
+        
+        
+        
+                                <!-- Comments END -->
+                                {% if request.user.is_authenticated %}
+                                <hr class="my-4">
+                                <!-- Reply START -->
+                                <div>
+                                    <h4>Add comment</h4>
+                                    <form method="post" action="" class="row g-3 mt-2 form-control">
+                                        {% csrf_token %}
+                                        <div class="col-12">
+                                            <label class="form-label">Your Comment *</label>
+                                            {{ comment_form.body|as_crispy_field }}
+                                        </div>
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-primary">Post comment</button>
+                                        </div>
+                                    </form>
+                                </div>
                                 {% else %}
-                                    <p>Please <a class="text-primary" href="{% url 'blog:login' %}">login</a>, add to comment!</p>
+                                <p>Please login than add comment. <a href="{% url 'blog:login' %}">Login page</a></p>
                                 {% endif %}
                             </div>
                         </div>
