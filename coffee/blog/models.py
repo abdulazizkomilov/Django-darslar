@@ -36,10 +36,24 @@ class Comment(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return str(self.body)
+    #  ----------------------  new  ------------------------
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies')
+
+    class Meta:
+        ordering = ['-updated', '-created']
+
+    
+    @property
+    def getReplies(self):
+        return Comment.objects.filter(parent=self).reverse()
     
 
-# class Userprofile(models.Model):
-#     user = models.OneToOneField(User, related_name='userprofile', on_delete=models.CASCADE)
-#     avatar = models.ImageField(upload_to='avatar/')
+    @property
+    def is_parent(self):
+        if self.parent is None:
+            return True
+
+    def __str__(self):
+        return self.body
+    
+
