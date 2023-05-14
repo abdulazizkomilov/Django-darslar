@@ -1,6 +1,6 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, TextInput
 from django.contrib.auth.forms import UserCreationForm
-from .models import User, Blog
+from .models import User, Blog, Comment
 
 class MyUserCreationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
@@ -40,5 +40,16 @@ class BlogCreateForm(ModelForm):
         model = Blog
         fields = '__all__'
         exclude = ['author', 'like', 'participants']
+
+
+#  ----------------------  new  ------------------------
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['body','parent']
+        widgets = {
+            'body' : TextInput(),
+        }
+
 
 
