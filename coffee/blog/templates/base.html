@@ -28,11 +28,11 @@
 
                         {% if request.user.avatar %}
                         <a class="avatar avatar-sm ms-auto d-lg-none d-block" id="profileDropdown" data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img class="avatar-img rounded-2" src="{{ request.user.avatar.url }}" alt="avatar">
+                            <img class="avatar-img rounded-circle" width="35px" src="{{ request.user.avatar.url }}" alt="avatar">
                         </a>
                         {% else %}
                         <a class="avatar avatar-sm ms-auto d-lg-none d-block" id="profileDropdown" data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img class="avatar-img rounded-2" src="/media/default.png" alt="avatar">
+                            <img class="avatar-img rounded-circle" width="35px" src="/media/default.png" alt="avatar">
                         </a>
                         {% endif %}
 
@@ -91,7 +91,7 @@
                                 <li class="nav-item"> <a class="nav-link" href="{% url 'blog:home' %}"><i class="bi bi-house-door-fill me-1"></i>Home</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{% url 'blog:blog' %}"><i class="bi bi-grid-1x2-fill me-1"></i>Blogs</a></li>
                                 <li class="nav-item"> <a class="nav-link" href=""><i class="bi bi-cart-fill me-1"></i>Store</a> </li>
-                                <li class="nav-item"> <a class="nav-link" href=""><i class="bi bi-bookmark-fill me-1"></i>Saved</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{% url 'blog:favourite_list' %}"><i class="bi bi-bookmark-fill me-1"></i>Saved</a></li>
                             </ul>
                             {% if request.user.is_authenticated %}
 
@@ -136,7 +136,7 @@
                                         </li>
 
                                         <li> <hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#"><i class="bi bi-bookmark-check fa-fw me-2"></i>My Bookings</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'blog:favourite_list' %}"><i class="bi bi-bookmark-check fa-fw me-2"></i>Bookmarks</a></li>
                                         <li><a class="dropdown-item" href="{% url 'blog:createPost' %}"><i class="bi bi-plus fa-fw me-2"></i>Add Post</a></li>
                                         <li><a class="dropdown-item" href="#"><i class="bi bi-gear fa-fw me-2"></i>Settings</a></li>
                                         <li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Help Center</a></li>
