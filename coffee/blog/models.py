@@ -21,7 +21,13 @@ class Blog(models.Model):
     image = models.ImageField(upload_to='media')
     like = models.ManyToManyField(User, related_name = 'like', blank=True)
     participants = models.ManyToManyField(User, related_name='participants', blank=True)
-    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+    #  ---------------------- start new  ------------------------
+    favourites = models.ManyToManyField(
+        User, related_name='favourite', default=None, blank=True)
+    #  ---------------------- end new  ------------------------
+
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     
