@@ -38,8 +38,8 @@
                                     <div class="avatar avatar-xl mb-2">
 
                                         {% if request.user.avatar %}
-                                        <a class="avatar-img rounded-circle border border-2 border-white">
-                                            <img class="avatar-img rounded-2"
+                                        <a class="avatar-img rounded-circle border border-1 border-white">
+                                            <img class="avatar-img rounded-circle"
                                                 src="{{ request.user.avatar.url }}">
                                         </a>
                                         {% else %}
@@ -82,8 +82,8 @@
                                                 class="bi bi-wallet fa-fw me-2"></i>Payment Details</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="account-wishlist.html"><i
-                                                class="bi bi-heart fa-fw me-2"></i>Wishlist</a>
+                                        <a class="nav-link" href="{% url 'blog:favourite_list' %}"><i
+                                                class="bi bi-heart fa-fw me-2"></i>Saved</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="account-settings.html"><i
