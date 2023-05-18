@@ -40,15 +40,36 @@
                                 by <a href="{% url 'blog:user' blog.author.id %}" class="ms-1"><span class="font-weight-bold text-info">
                                     @{{blog.author}}</span></a>, {{blog.created|timesince}} ago
                             </p>
-                            {% if request.user in blog.like.all %}
-                            <a href="{% url 'blog:deslike_blog' blog.id %}">
-                                <i class="fa-{% if request.user in blog.like.all %}solid{% else %}regular{% endif %} fa-heart fa-2xl"></i>
-                            </a>
-                            {% else %}
-                            <a href="{% url 'blog:like_blog' blog.id %}">
-                                <i class="fa-{% if request.user in blog.like.all %}solid{% else %}regular{% endif %} fa-heart fa-2xl"></i>
-                            </a>
-                            {% endif %}
+                            <div class="d-flex justify-content-between">
+                                {% if request.user in blog.like.all %}
+                                <a href="{% url 'blog:deslike_blog' blog.id %}">
+                                    <i class="fa-{% if request.user in blog.like.all %}solid{% else %}regular{% endif %} fa-heart fa-2xl"></i>
+                                </a>
+                                {% else %}
+                                <a href="{% url 'blog:like_blog' blog.id %}">
+                                    <i class="fa-{% if request.user in blog.like.all %}solid{% else %}regular{% endif %} fa-heart fa-2xl"></i>
+                                </a>
+                                {% endif %}
+
+
+                                {% if request.user.is_authenticated %}
+
+                                {% if fav %}
+                                <div>
+                                    <a href="{% url 'blog:favourite_list' %}" class=""><i class="fa-solid fa-bookmark fa-2xl"></i></a>
+                                </div>
+                                {% else %}
+                                <div>
+                                    <a href="{% url 'blog:favourite_add' blog.id %}" class=""><i class="fa-regular fa-bookmark fa-2xl"></i></a>
+                                </div>
+                                {% endif %}
+
+                                {% else %}
+                                <div>
+                                    <a href="{% url 'blog:sign_up' %}" class=""><i class="fa-regular fa-bookmark fa-2xl"></i></a>
+                                </div>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                     <center>
