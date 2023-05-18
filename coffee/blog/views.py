@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponseRedirect
 from .models import Blog, Comment, User
 
 from django.http import HttpResponse
@@ -86,6 +86,7 @@ def home(request):
     blogs = Blog.objects.all()
     users = User.objects.all()
     commments = Comment.objects.all()
+
     context = {
         'blogs': blogs,
         'users': users,
@@ -256,19 +257,13 @@ def blog_detail(request, pk):
     comments = blog.comment_set.all()
 
     #  ----------------------  new  ------------------------
+    fav = bool
+
+    if blog.favourites.filter(id=request.user.id).exists():
+        fav = True
+
+
     comments_count = comments.count()
-
-
-    # if request.method == 'POST':
-    #     comment = Comment.objects.create(
-    #         user = request.user,
-    #         blog = blog,
-    #         body = request.POST.get('body'),
-    #     )
-    #     return redirect(request.META.get('HTTP_REFERER'))
-    
-
-    #  ----------------------  new  ------------------------
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
@@ -290,8 +285,28 @@ def blog_detail(request, pk):
         'comment_form': comment_form,
         'comments': comments,
         'comments_count': comments_count,
+        'fav': fav,
     }
     return render(request, 'blog_detail.html', context)
+
+
+@login_required
+def favourite_list(request):
+    new = Blog.objects.filter(favourites=request.user)
+    return render(request,
+                  'components/favourites.html',
+                  {'new': new})
+
+
+@login_required
+def favourite_add(request, id):
+    post = get_object_or_404(Blog, id=id)
+    if post.favourites.filter(id=request.user.id).exists():
+        post.favourites.remove(request.user)
+    else:
+        post.favourites.add(request.user)
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
 
 
 def delete_comment(request, pk, id):
