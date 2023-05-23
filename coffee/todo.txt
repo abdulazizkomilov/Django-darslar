@@ -23,10 +23,10 @@ Coffe Team Project
 - DONE Userlar uchun followers qo`shish
 - DONE Comment reply qo'shish
 - DONE homedagi raqamlarni tugirlash
-- postlarni saqlash bookmarkga
-- htmx ni tushuntitish
-- pre-post, post-save decorators
-- select_releted, prefetch_related queryset methods
+- DONE postlarni saqlash bookmarkga
+- django-toolbar intraductions
+- postgresqlga ulash render orqali
+- browser network tools
 - …
 - …
 - …
