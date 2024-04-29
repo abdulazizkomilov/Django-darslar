@@ -2,8 +2,8 @@ import random
 from infobip_channels.sms.channel import SMSChannel
 
 BASE_URL = "https://ejv5qn.api.infobip.com"
-API_KEY = "42b9f560b55c522dc7fbaae99a4a4704-84519654-62f4-4297-9e26-835d8ec2d3a1"
-RECIPIENT = "998938452244"
+API_KEY = "30a84cc24821da0deb651478d0ba6716-8caed106-3383-4182-b146-4a3fdefae2bd"
+RECIPIENT = "998997623107"
 
 def main():
     channel = SMSChannel.from_auth_params(
@@ -26,6 +26,9 @@ def main():
     query_parameters = {"limit": 10}
     delivery_reports = channel.get_outbound_sms_delivery_reports(
         query_parameters)
+    print(code)
+    print(sms_response)
+    print(delivery_reports)
 
 if __name__ == "__main__":
     main()
